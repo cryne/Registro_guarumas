@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
-import App from './components/Login';
+import App from './components/Menu';
 //import * as serviceWorker from './serviceWorker';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
