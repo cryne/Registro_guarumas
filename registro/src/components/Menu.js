@@ -5,8 +5,9 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import NotFound from './NotFound'
+import ItemNavegacion from './ItemNavegacion';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { IconButton, Typography, Hidden } from '@material-ui/core';
+import { IconButton, Typography, Hidden, Divider, List } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 const drawerWidth = 240;
 const styles = theme => ({
@@ -47,11 +48,108 @@ class Index extends React.Component {
         this.props=props;
 
         this.state={
+            user: null,
+            mobileOpen: false,
         };
     }
 
+    
+
     render() {
-        const {classes,theme, container} =this.props;
+        const {classes, theme, container} =this.props;
+        const { user, mobileOpen } = this.state;
+
+        /*const menuLogout = (
+            <Link key="LogOut" to="/logout">
+                <ItemNavegacion
+                    text="Log out"
+                    icon="return"
+                />
+            </Link>
+        );*/
+        const OpcionA =(
+            <List>
+                <ItemNavegacion
+                    text="Opcion A"
+                    iconName="none"
+                />
+            </List>
+        );
+        const OpcionB =(
+            <List>
+                <ItemNavegacion
+                    text="Opcion B"
+                    iconName="none"
+                />
+            </List>
+        );
+        const OpcionC =(
+            <List>
+                <ItemNavegacion
+                    text="Opcion C"
+                    iconName="none"
+                />
+            </List>
+        );
+        const OpcionD =(
+            <List>
+                <ItemNavegacion
+                    text="Opcion D"
+                    iconName="none"
+                />
+            </List>
+        );const OpcionE =(
+            <List>
+                <ItemNavegacion
+                    text="Opcion E"
+                    iconName="none"
+                />
+            </List>
+        );const OpcionF =(
+            <List>
+                <ItemNavegacion
+                    text="Opcion F"
+                    iconName="none"
+                />
+            </List>
+        );const OpcionG =(
+            <List>
+                <ItemNavegacion
+                    text="Opcion G"
+                    iconName="none"
+                />
+            </List>
+        );const OpcionH =(
+            <List>
+                <ItemNavegacion
+                    text="Opcion H"
+                    iconName="none"
+                />
+            </List>
+        );
+        const drawer = (
+            <div>
+                <div className={classes.toolbar}>
+                    <Divider/>
+                    {OpcionA}
+                    <Divider/>
+                    {OpcionB}
+                    <Divider/>
+                    {OpcionC}
+                    <Divider/>
+                    {OpcionD}
+                    <Divider/>
+                    {OpcionE}
+                    <Divider/>
+                    {OpcionF}
+                    <Divider/>
+                    {OpcionG}
+                    <Divider/>
+                    {OpcionH}
+                </div>
+            </div>
+        );
+
         return(
             <div>
                 <CssBaseline />
@@ -75,10 +173,24 @@ class Index extends React.Component {
                             container={container}
                             variant="temporary"
                             classes={{
-                                paper: classes.drawerPaper
+                                paper: classes.drawerPaper,
+                            }}
+                            ModalProps={{
+                                keepMounted: true,
                             }}
                         >
-                            
+                        {drawer}
+                        </Drawer>                    
+                    </Hidden>
+                    <Hidden xsDown implementation="css">
+                        <Drawer
+                            classes={{
+                                paper: classes.drawerPaper,
+                            }}
+                            variant="permanent"
+                            open
+                        >
+                            {drawer}
                         </Drawer>
                     </Hidden>
                 </nav>
