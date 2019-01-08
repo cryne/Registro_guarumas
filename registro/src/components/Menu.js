@@ -7,8 +7,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import NotFound from './NotFound'
 import ItemNavegacion from './ItemNavegacion';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import {
+    Route, Link, Switch, Redirect,
+  } from 'react-router-dom';
 import { IconButton, Typography, Hidden, Divider, List } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import Servicios from './Servicios';
 const drawerWidth = 240;
 const styles = theme => ({
   root: {
@@ -42,6 +46,20 @@ const styles = theme => ({
   },
 });
 
+function Rutas({ component: Component, path, ...rest}) {
+    return (
+        <Route
+        {...rest}
+        path={path}
+        render={(props)=>{
+            return(
+                <Component {...props}/>
+            );
+        }}
+        />
+    );
+}
+
 class Index extends React.Component {
     constructor(props){
         super(props);
@@ -52,8 +70,13 @@ class Index extends React.Component {
             mobileOpen: false,
         };
     }
-
-    
+    componentDidMount() {
+        // TODO hacer que si se actualiza que mande a la ruta que estaba
+        const token = localStorage.getItem('granco-token');
+      }
+    handleDrawerToggle() {
+        this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+      }
 
     render() {
         const {classes, theme, container} =this.props;
@@ -68,64 +91,84 @@ class Index extends React.Component {
             </Link>
         );*/
         const OpcionA =(
-            <List>
-                <ItemNavegacion
-                    text="Opcion A"
+            <Link to="/servicios">
+                <List>
+                    <ItemNavegacion
+                    text="Servicios"
                     iconName="none"
                 />
-            </List>
+                </List>
+            </Link>
         );
         const OpcionB =(
+            <Link to="/pagoservicios">
             <List>
                 <ItemNavegacion
-                    text="Opcion B"
+                    text="Pago de Servicios"
                     iconName="none"
                 />
             </List>
+            </Link>
         );
         const OpcionC =(
+            <Link to="/">
             <List>
                 <ItemNavegacion
                     text="Opcion C"
                     iconName="none"
                 />
             </List>
+            </Link>
         );
         const OpcionD =(
+            <Link to="/">
             <List>
                 <ItemNavegacion
                     text="Opcion D"
                     iconName="none"
                 />
             </List>
-        );const OpcionE =(
+            </Link>
+        );
+        const OpcionE =(
+            <Link to="/">
             <List>
                 <ItemNavegacion
                     text="Opcion E"
                     iconName="none"
                 />
             </List>
-        );const OpcionF =(
+            </Link>
+        );
+        const OpcionF =(
+            <Link to="/">
             <List>
                 <ItemNavegacion
                     text="Opcion F"
                     iconName="none"
                 />
             </List>
-        );const OpcionG =(
+            </Link>
+        );
+        const OpcionG =(
+            <Link to="/">
             <List>
                 <ItemNavegacion
                     text="Opcion G"
                     iconName="none"
                 />
             </List>
-        );const OpcionH =(
+            </Link>
+        );
+        const OpcionH =(
+            <Link to="/">
             <List>
                 <ItemNavegacion
                     text="Opcion H"
                     iconName="none"
                 />
             </List>
+            </Link>
         );
         const drawer = (
             <div>
@@ -151,13 +194,14 @@ class Index extends React.Component {
         );
 
         return(
-            <div>
+            <div className={classes.root}>
                 <CssBaseline />
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
                         <IconButton
                             color="inherit"
                             aria-label="Open drawer"
+                            onClick={this.handleDrawerToggle}
                             className={classes.menuButton}
                         >
                             <MenuIcon/>
@@ -172,6 +216,9 @@ class Index extends React.Component {
                         <Drawer
                             container={container}
                             variant="temporary"
+                            /*anchor={theme.direction === 'rtl' ? 'right' : 'left'}*/
+                            open={mobileOpen}
+                            onClose={this.handleDrawerToggle}
                             classes={{
                                 paper: classes.drawerPaper,
                             }}
@@ -194,6 +241,14 @@ class Index extends React.Component {
                         </Drawer>
                     </Hidden>
                 </nav>
+                <main className={classes.content}>
+                    <div className={classes.toolbar}/>
+                    <Switch>
+                        <Rutas path="/servicios" component={Servicios}/>
+                        <Rutas path="/pagoservicios" component={NotFound}/>
+                        <Route render={() => <NotFound/>}/>
+                    </Switch>
+                </main>
             </div>
         );
     }
@@ -201,6 +256,8 @@ class Index extends React.Component {
 
 Index.propTypes={
     classes: PropTypes.object.isRequired,
+    container: PropTypes.object,
+    theme: PropTypes.isRequired,
 };
 
 export default withStyles(styles)(Index);
